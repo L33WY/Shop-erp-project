@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+#TODO docerize lamp server sync with db
+  app:
+    container_name: shop_erp_app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - ../app:/var/www/html
+      - /var/www/html/vendor
+      - /var/www/html/node_modules
+    networks:
+      - shop_erp_web
+
+  nginx:
+    container_name: shop_erp_nginx
+    image: nginx:latest
+    ports:
+      - '8080:80'
+    volumes:
+      - ../app:/var/www/html
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - shop_erp_web
+
+  db:
+    container_name: shop_erp_db
+    image: mysql:8
+    environment:
+      - MYSQL_DATABASE=shop_erp_db
+      - MYSQL_USER=shop_erp
+      - MYSQL_PASSWORD=shop_erp
+      - MYSQL_ROOT_PASSWORD=shop_erp
+      - MYSQL_ALLOW_EMPTY_PASSWORD=no
+    ports:
+      - '3306:3306'
+    networks:
+      - shop_erp_web
+    depends_on:
+      - app
+networks:
+  shop_erp_web:
+    external: false
