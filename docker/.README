@@ -1,0 +1,10 @@
+TODO improve docker set up
+To set up project currently:
+1.cd ./docker
+2.docker compose up -d
+3.docker exec -it shop_erp_app bash
+    composer install
+    npm install --global yarn
+    npm install -g n
+    n latest
+    yarn build
