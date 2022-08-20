@@ -5,18 +5,25 @@ RUN apt-get update && apt-get install -y \
     curl \
     zip \
     unzip \
-    mariadb-client \
     nodejs \
     npm
-
-#    php-cli \
-#    php-zip
-#    mysql-client \
 
 #install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-##install npm
-#RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-
 WORKDIR /var/www/html
+
+#RUN composer install
+
+#Update node and build frontend
+RUN npm install --global -y \
+    yarn \
+    n
+
+RUN n latest
+
+RUN yarn -y \
+    install \
+    build
+
+RUN docker-php-ext-install pdo_mysql
