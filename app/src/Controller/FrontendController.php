@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -12,6 +12,7 @@ class FrontendController extends AbstractController
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        return $this->render('index.html.twig');
+
+        return $this->render('page/home/index.html.twig');
     }
 }
