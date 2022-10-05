@@ -10,13 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FrontendController extends AbstractController
 {
-    #[Route('/', name: 'home')]
-    public function index(Request $request, Context $context): Response
+    #[Route('/', name: 'account.index')]
+    public function index(): Response
     {
+
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
+        
         $context->setUser(($this->getUser())->eraseCredentials());
-
 
         return $this->render('page/home/index.html.twig', [
             'context' => $context,
