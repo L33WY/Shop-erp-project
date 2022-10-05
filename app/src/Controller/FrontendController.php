@@ -8,9 +8,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FrontendController extends AbstractController
 {
-    #[Route('/', name: 'front.index')]
+    #[Route('/', name: 'account.index')]
     public function index(): Response
     {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('index.html.twig');
     }
 }
