@@ -14,6 +14,6 @@ class FrontendController extends AbstractController
 
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        return $this->render('index.html.twig');
+        return $this->render('page/home/index.html.twig');
     }
 }
