@@ -13,7 +13,7 @@ class AccountHomeController extends AbstractController
     public function index(Request $request): Response
     {
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         return $this->render('page/account/home/index.html.twig', [
             'user' => ($this->getUser())->eraseCredentials(),
